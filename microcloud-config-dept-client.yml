@@ -3,21 +3,21 @@ spring:
     active:
     - dev
 ---
-server:
+server: 
   port: 8001
 eureka:
- client:
-  service-url:
-    defaultZone: http://edmin:mldnjava@eureka-7001.com:7001/eureka,http://edmin:mldnjava@eureka-7002.com:7002/eureka,http://edmin:mldnjava@eureka-7003.com:7003/eureka
- instance:
-    instance-id: dept-8001.com
-    prefer-ip-address: true
-    ease-renewal-interval-in-seconds: 2
-    lease-expiration-duration-in-seconds: 5
+  client: # 客户端进行Eureka注册的配置
+    service-url:
+      defaultZone: http://edmindev:mldnjava@eureka-7001.com:7001/eureka
+  instance:
+    lease-renewal-interval-in-seconds: 2 # 设置心跳的时间间隔（默认是30秒）
+    lease-expiration-duration-in-seconds: 5 # 如果现在超过了5秒的间隔（默认是90秒）
+    instance-id: dept-8001.com  # 在信息列表时显示主机名称
+    prefer-ip-address: true     # 访问的路径变为IP地址
 info:
   app.name: mldn-microcloud
-  company.name: ww.mldn.cn
-  build.arifactId: $project.artifactId$
+  company.name: www.mldn.cn
+  build.artifactId: $project.artifactId$
   build.version: $project.verson$
 mybatis:
   config-location: classpath:mybatis/mybatis.cfg.xml    # mybatis配置文件所在路径
@@ -25,10 +25,11 @@ mybatis:
   mapper-locations:                                     # 所有的mapper映射文件
   - classpath:mybatis/mapper/**/*.xml
 spring:
+  profiles: dev
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource    # 配置当前要使用的数据源的操作类型
     driver-class-name: org.gjt.mm.mysql.Driver      # 配置MySQL的驱动程序类
-    url: jdbc:mysql://192.168.52.129:3306/mldn8001           # 数据库连接地址
+    url: jdbc:mysql://localhost:3306/mldn8001           # 数据库连接地址
     username: root                                  # 数据库用户名
     password: mysqladmin                            # 数据库连接密码
     dbcp2:                                          # 进行数据库连接池的配置
@@ -37,24 +38,23 @@ spring:
       max-total: 5                                  # 最大的连接数
       max-wait-millis: 200                          # 等待连接获取的最大超时时间
   application:
-    profiles: dev
     name: microcloud-config-dept-client
 ---
-server:
+server: 
   port: 8001
 eureka:
- client:
-  service-url:
-    defaultZone: http://edmin:mldnjava@eureka-7001.com:7001/eureka,http://edmin:mldnjava@eureka-7002.com:7002/eureka,http://edmin:mldnjava@eureka-7003.com:7003/eureka
- instance:
-    instance-id: dept-8001.com
-    prefer-ip-address: true
-    ease-renewal-interval-in-seconds: 2
-    lease-expiration-duration-in-seconds: 5
+  client: # 客户端进行Eureka注册的配置
+    service-url:
+      defaultZone: http://edminbeta:mldnjava@eureka-7001.com:7001/eureka
+  instance:
+    lease-renewal-interval-in-seconds: 2 # 设置心跳的时间间隔（默认是30秒）
+    lease-expiration-duration-in-seconds: 5 # 如果现在超过了5秒的间隔（默认是90秒）
+    instance-id: dept-8001.com  # 在信息列表时显示主机名称
+    prefer-ip-address: true     # 访问的路径变为IP地址
 info:
   app.name: mldn-microcloud
-  company.name: ww.mldn.cn
-  build.arifactId: $project.artifactId$
+  company.name: www.mldn.cn
+  build.artifactId: $project.artifactId$
   build.version: $project.verson$
 mybatis:
   config-location: classpath:mybatis/mybatis.cfg.xml    # mybatis配置文件所在路径
@@ -62,10 +62,11 @@ mybatis:
   mapper-locations:                                     # 所有的mapper映射文件
   - classpath:mybatis/mapper/**/*.xml
 spring:
+  profiles: beta
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource    # 配置当前要使用的数据源的操作类型
     driver-class-name: org.gjt.mm.mysql.Driver      # 配置MySQL的驱动程序类
-    url: jdbc:mysql://192.168.52.129:3306/mldn8001           # 数据库连接地址
+    url: jdbc:mysql://localhost:3306/mldn8001           # 数据库连接地址
     username: root                                  # 数据库用户名
     password: mysqladmin                            # 数据库连接密码
     dbcp2:                                          # 进行数据库连接池的配置
@@ -74,5 +75,4 @@ spring:
       max-total: 5                                  # 最大的连接数
       max-wait-millis: 200                          # 等待连接获取的最大超时时间
   application:
-    profiles: beta
-    name: microcloud-config-dept-client         
+    name: microcloud-config-dept-client
