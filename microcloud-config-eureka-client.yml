@@ -21,7 +21,7 @@ security:
   basic:
     enabled: true
   user:
-    name: edmin
+    name: edmindev
     password: mldnjava
 ---
 server:
@@ -42,5 +42,5 @@ security:
   basic:
     enabled: true
     user:
-     name: edmin
+     name: edminbeta
      password: mldnjava
